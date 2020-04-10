@@ -1,0 +1,1 @@
+﻿Place construction  of lexlog in MainMenu.Awake
