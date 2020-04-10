@@ -192,9 +192,19 @@ namespace aLexicon
                         break;
 
                     case "give":
-                        Player.Get().AddItemToInventory(args1[1]);
-                        AddDebugLine("Giving Item " + args1[1]);
+                        foreach (var item in Enum.GetNames(typeof(Enums.ItemID)))
+                        {
+                            if (item.IndexOf(args1[1], StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                Player.Get().AddItemToInventory(item);
+                                AddDebugLine("Giving Item " + item);
+                                return;
+                            }
+                        }
+
+                        AddDebugLine("Couldn't find item");
                         break;
+
                     case "spawnwave":
                         if (int.TryParse(args1[1], out int count))
                         {
