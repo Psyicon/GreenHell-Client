@@ -199,7 +199,7 @@ namespace aLexicon
                             foreach (var item in Enum.GetNames(typeof(Enums.ItemID)))
                             {
                                 if (item.Equals(args1[1], StringComparison.OrdinalIgnoreCase))
-                                {
+                                { 
                                     Player.Get().AddItemToInventory(item);
                                     AddDebugLine("Giving Item " + item);
                                     return;
