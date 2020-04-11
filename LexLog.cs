@@ -193,17 +193,64 @@ namespace aLexicon
                         break;
 
                     case "give":
+                        if(args1[1].StartsWith("'"))
+                        {
+                            args1[1] = args1[1].Replace("'", string.Empty);
+                            foreach (var item in Enum.GetNames(typeof(Enums.ItemID)))
+                            {
+                                if (item.Equals(args1[1], StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Player.Get().AddItemToInventory(item);
+                                    AddDebugLine("Giving Item " + item);
+                                    return;
+                                }
+                            }
+                        } else
+                        {
+                            foreach (var item in Enum.GetNames(typeof(Enums.ItemID)))
+                            {
+                                if (item.IndexOf(args1[1], StringComparison.OrdinalIgnoreCase) >= 0)
+                                {
+                                    Player.Get().AddItemToInventory(item);
+                                    AddDebugLine("Giving Item " + item);
+                                    return;
+                                }
+                            }
+                        }
+                        
+
+                        AddDebugLine("Couldn't find item");
+                        break;
+
+                    case "find":
+                        List<string> results = new List<string>();
                         foreach (var item in Enum.GetNames(typeof(Enums.ItemID)))
                         {
                             if (item.IndexOf(args1[1], StringComparison.OrdinalIgnoreCase) >= 0)
                             {
-                                Player.Get().AddItemToInventory(item);
-                                AddDebugLine("Giving Item " + item);
-                                return;
+                                results.Add(item);
                             }
                         }
 
-                        AddDebugLine("Couldn't find item");
+                        if(results.Count > 0)
+                        {
+                            int itemCount = results.Count;
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < itemCount; i++)
+                            {
+                                sb.Append(results[i]);
+                                if(i < (itemCount - 1))
+                                {
+                                    sb.Append(", ");
+                                }
+                            }
+
+                            AddDebugLine("Found Item(s): "+sb.ToString());
+                        }
+                        else
+                        {
+                            AddDebugLine("Couldn't find any items");
+                        }
                         break;
 
                     case "spawnwave":

@@ -1,4 +1,5 @@
 ﻿Place construction  of lexlog in MainMenu.Awake
+	if(aLexicon.LexLog.Instance != null) new GameObject().AddComponent<aLexicon.LexLog>();
 
 
 ConstructionController:
