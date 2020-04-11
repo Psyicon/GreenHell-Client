@@ -214,7 +214,10 @@ namespace aLexicon
                         }
                         AddDebugLine("Couldn't parse number");
                         break;
-
+                     case "destroyenemies":
+                        AIManager.Get().DestroyAllEnemies();
+	                    this.AddDebugLine("Destroying All Enemies");
+                        break;
                 }
             }
 
