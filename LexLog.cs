@@ -4,6 +4,7 @@
 // MVID: BC8425FC-8748-472E-A44F-7BBF6B7518D8
 // Assembly location: D:\SteamLibrary\steamapps\common\Green Hell\GH_Data\Managed\Assembly-CSharp.dll
 
+using AIs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -208,7 +209,7 @@ namespace aLexicon
                     case "spawnwave":
                         if (int.TryParse(args1[1], out int count))
                         {
-                            AIs.EnemyAISpawnManager.Get().SpawnWave(count);
+                            EnemyAISpawnManager.Get().SpawnWave(count);
                             AddDebugLine($"Spawning wave of {count} enemies");
                             return;
                         }
@@ -217,6 +218,11 @@ namespace aLexicon
                      case "destroyenemies":
                         AIManager.Get().DestroyAllEnemies();
 	                    this.AddDebugLine("Destroying All Enemies");
+                        break;
+                    
+                    case "togglecraft":
+                        ConstructionController.craftAnywhere = !ConstructionController.craftAnywhere;
+                        AddDebugLine($"Construct anywhere turned {(ConstructionController.craftAnywhere ? "On" : "Off")}");
                         break;
                 }
             }

@@ -1,1 +1,11 @@
 ﻿Place construction  of lexlog in MainMenu.Awake
+
+
+ConstructionController:
+	Add Member: public static bool craftAnywhere = false;
+
+	public bool CanCreateConstruction()
+	{
+		if(craftAnywhere) return true;
+		return this.m_Ghost != null && this.m_Ghost.GetState() == ConstructionGhost.GhostState.Dragging && this.m_Ghost.CanBePlaced();
+	}
